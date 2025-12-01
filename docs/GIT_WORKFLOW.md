@@ -40,7 +40,53 @@ Nothing in this file is optional.
 
 ---
 
-# 🌲 2. Branch Naming Rules (MANDATORY)
+# 🔐 2. GitHub & Repository Rules (MANDATORY)
+
+**ALWAYS use GitHub CLI (`gh`). This is the ONLY approved method.**
+
+### Prerequisites
+
+```bash
+# Check if gh is installed
+gh --version
+
+# Check if authenticated
+gh auth status
+
+# If not authenticated, run:
+gh auth login
+```
+
+### Creating New Repositories
+
+```bash
+# PRIVATE repository (default - always use unless told otherwise)
+gh repo create owner/repo-name --private --source=. --push
+
+# PUBLIC repository (only if explicitly requested)
+gh repo create owner/repo-name --public --source=. --push
+```
+
+### ❌ FORBIDDEN Methods (Agents must NEVER use these)
+
+* SSH key configuration or troubleshooting
+* Personal access tokens
+* Creating repos via GitHub web UI
+* Manual `git remote add` commands
+* Any authentication method other than `gh auth login`
+
+### If Authentication Fails
+
+Agent must STOP and tell the developer:
+```
+"GitHub authentication required. Please run: gh auth login"
+```
+
+Agent must NOT try alternative methods.
+
+---
+
+# 🌲 3. Branch Naming Rules (MANDATORY)
 
 Every branch must follow the standard Git convention:
 
@@ -74,7 +120,7 @@ feature/login-page       ← Missing owner segment
 
 ---
 
-# 📂 3. Worktree Folder Naming Rules
+# 📂 4. Worktree Folder Naming Rules
 
 Folders represent the **PHYSICAL LOCATION** of the work.
 They use the environment prefix to indicate where they live.
@@ -100,7 +146,7 @@ These folders live **inside speakit-dev/** only.
 
 ---
 
-# 🧠 4. Who Creates Feature Branches?
+# 🧠 5. Who Creates Feature Branches?
 
 * **Humans** create branches for humans.
 * **new-feature.sh** creates branches for agents.
@@ -108,7 +154,7 @@ These folders live **inside speakit-dev/** only.
 
 ---
 
-# 🚀 5. Workspace Initialization (First-Time Setup)
+# 🚀 6. Workspace Initialization (First-Time Setup)
 
 When setting up the monorepo for the first time, run:
 
@@ -127,7 +173,7 @@ This will:
 
 ---
 
-# 🔍 6. Workspace Verification (Health Check)
+# 🔍 7. Workspace Verification (Health Check)
 
 To verify your workspace is correctly configured, run:
 
@@ -149,7 +195,7 @@ This checks:
 
 ---
 
-# 🎋 7. Feature Creation (Always via Script)
+# 🎋 8. Feature Creation (Always via Script)
 
 From:
 
@@ -173,7 +219,7 @@ This will:
 
 ---
 
-# 🧨 8. Feature Deletion (Safe Cleanup)
+# 🧨 9. Feature Deletion (Safe Cleanup)
 
 From:
 
@@ -198,7 +244,7 @@ Agents must **never** delete manually.
 
 ---
 
-# 🔄 9. Syncing Rules (Agents + Humans)
+# 🔄 10. Syncing Rules (Agents + Humans)
 
 ### MUST sync before first commit of each session:
 
@@ -220,7 +266,7 @@ Humans handle all non-trivial conflicts.
 
 ---
 
-# 🚑 10. Hotfix Strategy (Critical)
+# 🚑 11. Hotfix Strategy (Critical)
 
 Hotfixes created on `staging` **must** propagate back to dev.
 
@@ -245,7 +291,7 @@ Human-only.
 
 ---
 
-# 📬 11. Commit Message Rules (MANDATORY)
+# 📬 12. Commit Message Rules (MANDATORY)
 
 Agents must ALWAYS use this template:
 
@@ -276,7 +322,7 @@ Agents MUST NOT:
 
 ---
 
-# 🧪 12. Testing Requirements
+# 🧪 13. Testing Requirements
 
 Before pushing any feature branch:
 
@@ -285,7 +331,7 @@ Before pushing any feature branch:
 
 ---
 
-# 🧵 13. Pull Request Rules
+# 🧵 14. Pull Request Rules
 
 Feature branches follow the pipeline:
 
@@ -303,7 +349,7 @@ Humans review everything.
 
 ---
 
-# 🚫 14. Forbidden Actions (Agents)
+# 🚫 15. Forbidden Actions (Agents)
 
 Agents must NEVER:
 
@@ -323,7 +369,7 @@ Agents MUST stop immediately upon:
 
 ---
 
-# 📜 15. Required Headers Inside Scripts
+# 📜 16. Required Headers Inside Scripts
 
 All scripts in `/scripts/` MUST begin with:
 
@@ -341,7 +387,7 @@ This keeps agents aligned.
 
 ---
 
-# 🌱 16. Environment Rules
+# 🌱 17. Environment Rules
 
 ### Features always start from:
 
@@ -356,7 +402,7 @@ Agents may NOT:
 
 ---
 
-# 🧰 17. Worktree Hygiene
+# 🧰 18. Worktree Hygiene
 
 ### After finishing a feature:
 
@@ -374,7 +420,7 @@ This ensures:
 
 ---
 
-# 🛡 18. Safety Guarantees
+# 🛡 19. Safety Guarantees
 
 This workflow guarantees:
 
@@ -386,7 +432,7 @@ This workflow guarantees:
 
 ---
 
-# 🧭 19. Quick Reference Cheat Sheet
+# 🧭 20. Quick Reference Cheat Sheet
 
 ```
 # Create feature
@@ -409,7 +455,7 @@ feat(scope): short description
 
 ---
 
-# 🧱 20. Philosophy
+# 🧱 21. Philosophy
 
 We assume:
 
