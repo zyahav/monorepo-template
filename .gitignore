@@ -1,0 +1,6 @@
+.DS_Store
+speakit/
+speakit-dev/
+speakit-staging/
+*.env*
+node_modules/
