@@ -1,11 +1,11 @@
 # Monorepo Template — Task Backlog
 
 **Last Updated:** December 1, 2025  
-**Status:** ✅ COMPLETE  
+**Status:** ✅ READY FOR TESTING
 
 ---
 
-## ✅ All Tasks Completed
+## ✅ All Development Tasks Completed
 
 | # | Task | Date |
 |---|------|------|
@@ -24,32 +24,45 @@
 | 13 | Add mysay detection + optional install to init-workspace.sh | Dec 1, 2025 |
 | 14 | Create CLAUDE.md template (generated during init) | Dec 1, 2025 |
 | 15 | Add root README.md | Dec 1, 2025 |
+| 16 | Add GitHub CLI (gh) auth check to init-workspace.sh | Dec 1, 2025 |
+| 17 | Add NEW repo creation option (private by default) | Dec 1, 2025 |
+| 18 | Add repo creation rules to CLAUDE.md template | Dec 1, 2025 |
+| 19 | Add Section 2 (GitHub Rules) to GIT_WORKFLOW.md | Dec 1, 2025 |
+| 20 | Renumber all GIT_WORKFLOW.md sections (now 21 total) | Dec 1, 2025 |
+| 21 | Commit & push template to GitHub | Dec 1, 2025 |
 
 ---
 
-## 🔧 Pending: Commit & Push
+## 🧪 NEXT: Test the Template
 
-All changes are LOCAL. Need to commit to Git.
+**Test location:** `/Users/zyahav/Documents/dev/agent-test-monorepo`
+
+**Test steps:**
+1. Create folder `agent-test-monorepo`
+2. Copy template files (scripts/, docs/, backlog/)
+3. Run `./scripts/init-workspace.sh`
+4. Verify: gh auth check works
+5. Verify: mysay detection works
+6. Verify: NEW repo creation works (private)
+7. Verify: Worktrees created correctly
+8. Verify: CLAUDE.md generated correctly
+9. Run `./scripts/verify-worktrees.sh`
+10. Test `./scripts/new-feature.sh agent test-feature`
 
 ---
 
 ## 📋 What Was Built
 
-### Reusable Monorepo Template
+### Template Repository
+https://github.com/zyahav/monorepo-template
+
+### Features
 - Auto-detects project name from folder
-- Scripts work for any project
-- Documentation uses `{project}` placeholders
-
-### mysay Integration
-- `init-workspace.sh` checks for mysay
-- Offers to install if missing
-- CLAUDE.md includes mysay instructions if installed
-- Scripts notify via mysay when available
-
-### Agent Onboarding
-- CLAUDE.md auto-generated during init
-- Contains project rules, communication instructions
-- Links to GIT_WORKFLOW.md
+- GitHub CLI (gh) integration
+- Private repos by default
+- mysay integration (optional)
+- CLAUDE.md auto-generation
+- 21-section workflow documentation
 
 ---
 

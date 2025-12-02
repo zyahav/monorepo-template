@@ -396,7 +396,7 @@ echo ""
 
 # Speak if mysay is available
 if [ "$MYSAY_INSTALLED" = true ]; then
-  mysay --done "Workspace initialized successfully! Ready to start working." &>/dev/null &
+  mysay --done "Workspace initialized successfully! Ready to start working."
 fi
 
 echo -e "${GREEN}   🟢 Ready to work!${NC}"
