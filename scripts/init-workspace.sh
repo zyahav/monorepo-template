@@ -8,6 +8,9 @@
 
 set -e
 
+# --- Source shared utilities ---
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
+
 # --- Detect Monorepo Root & Project Name ---
 MONOREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MONOREPO_NAME=$(basename "$MONOREPO_DIR")
@@ -395,9 +398,7 @@ echo "   3. ./scripts/new-feature.sh agent <feature-name>"
 echo ""
 
 # Speak if mysay is available
-if [ "$MYSAY_INSTALLED" = true ]; then
-  mysay --done "Workspace initialized successfully! Ready to start working."
-fi
+say_done "Initialized successfully! Ready to work."
 
 echo -e "${GREEN}   🟢 Ready to work!${NC}"
 echo ""

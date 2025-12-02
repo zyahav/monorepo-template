@@ -6,6 +6,9 @@
 # See GIT_WORKFLOW.md for full workflow rules
 # ===============================================
 
+# --- Source shared utilities ---
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
+
 # --- Detect Monorepo Root & Project Name ---
 MONOREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MONOREPO_NAME=$(basename "$MONOREPO_DIR")
@@ -98,10 +101,7 @@ fi
 echo "🧹 Pruning Git metadata..."
 git worktree prune
 
-echo
 echo "💀 Feature worktree destroyed successfully."
 
-# Notify via mysay if available
-if command -v mysay &>/dev/null; then
-  mysay --done "Feature destroyed: $TARGET_FOLDER" &>/dev/null &
-fi
+# Notify via mysay
+say_done "Feature $TARGET_FOLDER destroyed"

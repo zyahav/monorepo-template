@@ -6,6 +6,9 @@
 # See GIT_WORKFLOW.md for full workflow rules
 # ===============================================
 
+# --- Source shared utilities ---
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
+
 # --- Detect Monorepo Root & Project Name ---
 MONOREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MONOREPO_NAME=$(basename "$MONOREPO_DIR")
@@ -99,7 +102,5 @@ echo "   pnpm install"
 echo "   Start coding!"
 echo ""
 
-# Notify via mysay if available
-if command -v mysay &>/dev/null; then
-  mysay --start "Feature branch created: $FEATURE_NAME" &>/dev/null &
-fi
+# Notify via mysay
+say_start "Feature $FEATURE_NAME created"
