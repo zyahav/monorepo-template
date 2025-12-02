@@ -1,6 +1,19 @@
+# OS
 .DS_Store
+
+# Environment files
+*.env*
+
+# Dependencies
+node_modules/
+
+# ===========================================
+# PROJECT FOLDERS
+# ===========================================
+# These folders are created by init-workspace.sh
+# They are separate Git repos, not part of the template
+#
+# UPDATE THESE with your actual project name:
 speakit/
 speakit-dev/
 speakit-staging/
-*.env*
-node_modules/

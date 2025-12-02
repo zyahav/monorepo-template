@@ -6,6 +6,9 @@
 # See GIT_WORKFLOW.md for full rules
 # ===============================================
 
+# --- Source shared utilities ---
+source "$(dirname "${BASH_SOURCE[0]}")/utils.sh"
+
 # --- Detect Monorepo Root & Project Name ---
 MONOREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 MONOREPO_NAME=$(basename "$MONOREPO_DIR")
