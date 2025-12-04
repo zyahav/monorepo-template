@@ -6,24 +6,34 @@
 # Source this file: source "$(dirname "$0")/utils.sh"
 # ===============================================
 
-# --- Detect Project Name (if not already set) ---
-if [ -z "$PROJECT_NAME" ]; then
-  MONOREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-  
-  # 1. Try reading from .project_name file in root
-  if [ -f "$MONOREPO_DIR/.project_name" ]; then
-    PROJECT_NAME=$(cat "$MONOREPO_DIR/.project_name" | tr -d '\n')
-  # 2. Try reading from .env file
-  elif [ -f "$MONOREPO_DIR/.env" ] && grep -q "PROJECT_NAME=" "$MONOREPO_DIR/.env"; then
-    PROJECT_NAME=$(grep "PROJECT_NAME=" "$MONOREPO_DIR/.env" | cut -d '=' -f2 | tr -d '"' | tr -d "'")
-  # 3. Fallback to directory name
+# --- Detect Project Name ---
+# Robust script directory detection (Bash + Zsh)
+if [ -n "$BASH_SOURCE" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+elif [ -n "$ZSH_VERSION" ]; then
+    SCRIPT_DIR="$(cd "$(dirname "${(%):-%x}")" && pwd)"
+else
+    SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+fi
+
+MONOREPO_DIR="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# 1. Priority: .project_name file (Overrides everything)
+if [ -f "$MONOREPO_DIR/.project_name" ]; then
+  PROJECT_NAME=$(cat "$MONOREPO_DIR/.project_name" | tr -d '\n')
+# 2. Priority: Existing Env Var
+elif [ -n "$PROJECT_NAME" ]; then
+  : # Keep existing PROJECT_NAME
+# 3. Priority: .env file
+elif [ -f "$MONOREPO_DIR/.env" ] && grep -q "PROJECT_NAME=" "$MONOREPO_DIR/.env"; then
+  PROJECT_NAME=$(grep "PROJECT_NAME=" "$MONOREPO_DIR/.env" | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+# 4. Fallback: Directory name
+else
+  MONOREPO_NAME=$(basename "$MONOREPO_DIR")
+  if [[ "$MONOREPO_NAME" == *-monorepo ]]; then
+    PROJECT_NAME="${MONOREPO_NAME%-monorepo}"
   else
-    MONOREPO_NAME=$(basename "$MONOREPO_DIR")
-    if [[ "$MONOREPO_NAME" == *-monorepo ]]; then
-      PROJECT_NAME="${MONOREPO_NAME%-monorepo}"
-    else
-      PROJECT_NAME="$MONOREPO_NAME"
-    fi
+    PROJECT_NAME="$MONOREPO_NAME"
   fi
 fi
 
