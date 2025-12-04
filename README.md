@@ -78,11 +78,16 @@ myproject-monorepo/
 
 ---
 
-## 🤖 For AI Agents
+## 🤖 For AI Agents (CRITICAL READ)
 
-1. Read `CLAUDE.md` in the project root
-2. Follow `docs/GIT_WORKFLOW.md` rules
-3. Use mysay for communication (if available)
+**STOP AND READ THIS BEFORE DOING ANYTHING ELSE.**
+
+1. **📖 Read the Rules**: You MUST read `docs/GIT_WORKFLOW.md`. It contains the **MANDATORY** Git Worktree workflow.
+2. **🗣️ Communication**: You MUST source `scripts/utils.sh` and use the wrapper functions (`say_start`, `say_done`) for all updates.
+3. **🧠 Context Awareness**: Check your `pwd`.
+    - Are you in the **Root** (`.../monorepo/`)? -> Edit docs/scripts here.
+    - Are you in a **Worktree** (`.../dev-agent-.../`)? -> Edit code here.
+4. **🚫 No Manual Git**: NEVER create branches manually. Use `./scripts/new-feature.sh`.
 
 ---
 

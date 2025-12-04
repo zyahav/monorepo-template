@@ -471,28 +471,54 @@ This workflow is the foundation for scaling multiple agents and humans working i
 
 # 🗣️ 22. Communication Protocol (My Say)
 
-Agents must use `mysay` to keep the user informed via voice/Telegram.
+Agents must use the wrapper functions in `scripts/utils.sh` to communicate. These functions automatically prepend the **Project Name** to the message.
 
 ### MANDATORY Rules:
-1. **Task Updates**: Whenever you update the `task.md` or change your `task_boundary` status, you MUST announce it via `mysay`.
-2. **Completion**: When a major phase is done, use `mysay --done`.
-3. **Errors**: If a script fails or you are blocked, use `mysay --error`.
-4. **Questions**: If you need user input, use `mysay --question -w`.
+1. **Source the Utils**: Always run `source scripts/utils.sh` before using the commands.
+2. **Use Wrappers**: Do NOT use `mysay` directly. Use `say_start`, `say_done`, `say_error`, `say_question`.
 
 ### Examples:
 ```bash
-# Starting a new task
-mysay --start "Starting Phase 1: Environment Setup"
+# Source the utilities first
+source scripts/utils.sh
 
-# Updating progress
-mysay "Implemented DeviceManager class"
+# Starting a new task
+say_start "Starting Phase 1: Environment Setup"
+
+# Updating progress (use say_hi or say_idea for general updates)
+say_idea "Implemented DeviceManager class"
 
 # Completion
-mysay --done "Phase 1 complete. All tests passed."
+say_done "Phase 1 complete. All tests passed."
 
 # Error
-mysay --error "Failed to install dependencies. Please check logs."
+say_error "Failed to install dependencies."
+
+# Question (waits for reply)
+say_question "Should I proceed with the deployment?"
 ```
+
+---
+
+# 🧠 23. Repository Context Awareness (CRITICAL)
+
+You are working in a **Dual-Repository Environment**. You must be aware of your current directory (`pwd`) before running Git commands.
+
+### 1. Monorepo Root (`.../andrew-monorepo/`)
+- **Tracks**: `docs/`, `scripts/`, `backlog/`.
+- **Git Context**: The "Monorepo Template" repository.
+- **Action**: If you edit documentation or scripts, run git commands **HERE**.
+
+### 2. Project Worktree (`.../andrew-dev/dev-agent-.../`)
+- **Tracks**: Source code, `andrew/`, `CLAUDE.md`.
+- **Git Context**: The "Project" repository (e.g., `andrew`).
+- **Action**: If you edit source code or project config, run git commands **HERE**.
+
+### ❌ COMMON MISTAKE:
+Do **NOT** try to commit `docs/` files from the Worktree.
+Do **NOT** try to commit source files from the Root.
+
+**ALWAYS check `pwd` before `git add`.**
 
 ---
 
