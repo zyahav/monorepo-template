@@ -9,12 +9,21 @@
 # --- Detect Project Name (if not already set) ---
 if [ -z "$PROJECT_NAME" ]; then
   MONOREPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-  MONOREPO_NAME=$(basename "$MONOREPO_DIR")
   
-  if [[ "$MONOREPO_NAME" == *-monorepo ]]; then
-    PROJECT_NAME="${MONOREPO_NAME%-monorepo}"
+  # 1. Try reading from .project_name file in root
+  if [ -f "$MONOREPO_DIR/.project_name" ]; then
+    PROJECT_NAME=$(cat "$MONOREPO_DIR/.project_name" | tr -d '\n')
+  # 2. Try reading from .env file
+  elif [ -f "$MONOREPO_DIR/.env" ] && grep -q "PROJECT_NAME=" "$MONOREPO_DIR/.env"; then
+    PROJECT_NAME=$(grep "PROJECT_NAME=" "$MONOREPO_DIR/.env" | cut -d '=' -f2 | tr -d '"' | tr -d "'")
+  # 3. Fallback to directory name
   else
-    PROJECT_NAME="$MONOREPO_NAME"
+    MONOREPO_NAME=$(basename "$MONOREPO_DIR")
+    if [[ "$MONOREPO_NAME" == *-monorepo ]]; then
+      PROJECT_NAME="${MONOREPO_NAME%-monorepo}"
+    else
+      PROJECT_NAME="$MONOREPO_NAME"
+    fi
   fi
 fi
 
