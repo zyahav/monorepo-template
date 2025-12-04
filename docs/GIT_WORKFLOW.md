@@ -469,4 +469,31 @@ This workflow is the foundation for scaling multiple agents and humans working i
 
 ---
 
+# 🗣️ 22. Communication Protocol (My Say)
+
+Agents must use `mysay` to keep the user informed via voice/Telegram.
+
+### MANDATORY Rules:
+1. **Task Updates**: Whenever you update the `task.md` or change your `task_boundary` status, you MUST announce it via `mysay`.
+2. **Completion**: When a major phase is done, use `mysay --done`.
+3. **Errors**: If a script fails or you are blocked, use `mysay --error`.
+4. **Questions**: If you need user input, use `mysay --question -w`.
+
+### Examples:
+```bash
+# Starting a new task
+mysay --start "Starting Phase 1: Environment Setup"
+
+# Updating progress
+mysay "Implemented DeviceManager class"
+
+# Completion
+mysay --done "Phase 1 complete. All tests passed."
+
+# Error
+mysay --error "Failed to install dependencies. Please check logs."
+```
+
+---
+
 # ✅ END OF DOCUMENT — DO NOT MODIFY
